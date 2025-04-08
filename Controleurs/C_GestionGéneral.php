@@ -7,6 +7,6 @@ if(isset($_GET['action'])){
 }
 switch($action){
   case 'accueil':
-    include("./index.php");
+    include("./V_Accueil.php");
     break;
 }
