@@ -15,15 +15,11 @@ switch ($action) {
     include("./vues/Recettes/V_ListeRecettes.php");
     break;
   case 'Recette':
-    $sourceDeDonnees = new RecettesDAO();
-    $listeRecettes = $sourceDeDonnees->recette();
-
-    include("./vues/Recettes/V_Recette.php");
-    break;
-  default:
-    $sourceDeDonnees = new RecettesDAO();
-    $listeRecettes = $sourceDeDonnees->getLesRecettes();
-
-    include("./vues/Recettes/V_ListeRecettes.php");
-    break;
+    if (isset($_GET['id'])) {
+      $id = intval($_GET['id']);
+      $sourceDeDonnees = new RecettesDAO();
+      $listeRecettes = $sourceDeDonnees->recette($id);
+      include("./vues/Recettes/V_Recette.php");
+      break;
+    }
 }

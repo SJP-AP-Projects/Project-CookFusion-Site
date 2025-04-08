@@ -4,9 +4,9 @@ include("./Modeles/Recettes/M_Recettes.php");
 include("./Modeles/Recettes/M_TypeRecettes.php");
 class RecettesDAO extends Base
 {
-    public function _construct()
+    public function __construct()
     {
-        parent::__construct('tsere_bddcuisine', 'g*2c*JRJcyYy@d6');
+        parent::__construct('tsere_apcuisine', 'g*2c*JRJcyYy@d6');
     }
     public function getLesRecettes()
     {
