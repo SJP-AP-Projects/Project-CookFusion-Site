@@ -15,7 +15,7 @@ class RecettesDAO extends Base{
       $listeRecettes = array();
       foreach ($tableauRecettes as $uneLigneUneRecettes) {
 
-          $unObjetCompetence = new Soiree($uneLigneUneRecettes["numRecette"], $uneLigneUneRecettes["libelleRecette"], $uneLigneUneRecettes['description'], $uneLigneUneRecettes['image'], $uneLigneUneRecettes['numType']);
+          $unObjetCompetence = new Recettes($uneLigneUneRecettes["numRecette"], $uneLigneUneRecettes["libelleRecette"], $uneLigneUneRecettes['description'], $uneLigneUneRecettes['image'], $uneLigneUneRecettes['numType']);
 
           $listeRecettes[] = $unObjetCompetence;
       }
