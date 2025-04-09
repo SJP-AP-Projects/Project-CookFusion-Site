@@ -7,7 +7,7 @@ class Recettes {
   private $image;
   private $numType;
 
-  public function _construct($id, $libelleRecette, $description, $image, $numType){
+  public function __construct($id, $libelleRecette, $description, $image, $numType){
     $this->id = $id;
     $this->libelleRecette = $libelleRecette;
     $this->description = $description;

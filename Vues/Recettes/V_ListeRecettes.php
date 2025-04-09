@@ -37,18 +37,20 @@
           </thead>
           <tbody class="divide-y divide-gray-200"> 
             <?php
-            foreach (listeRecettes as $uneRecette){
+            foreach ($listeRecettes as $uneRecette){
               echo "<tr>";
-                echo "<td class='px-6 py-4 border-r-2 border-solid border-t-2'>". $uneRecette->getImage()."</td>";
+                echo "<td class='px-6 py-4 border-r-2 border-solid border-t-2'><img class='w-25 h-24'
+                  
+                  src="
+                  . $uneRecette->getImage()."/></td>";
                 echo "<td class='px-6 py-4 border-r-2 border-solid border-t-2'>". $uneRecette->getLibelle()."</td>";
                 echo "<td class='px-6 py-4 border-r-2 border-solid border-t-2'>". $uneRecette->getDescription()."</td>";
                 echo "<td class='border-solid border-t-2'>
-                <button
-                  class='bg-amber-100 text-black font-bold py-2 px-4 rounded-full'
-                >
-                  Voir la recette
-                </button>
-              </td>";
+    <a href=\"index.php?controleur=Recettes&action=Recette&id=" . $uneRecette->getId() . "\" 
+       class='bg-amber-100 text-black font-bold py-2 px-4 rounded-full'>
+      Voir la recette
+    </a>
+  </td>";
             };
             ?>
           </tbody>

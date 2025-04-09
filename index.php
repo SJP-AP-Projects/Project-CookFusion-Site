@@ -14,7 +14,7 @@
   <header class="flex items-center justify-between px-4 py-2 mr-8 ml-8">
     <!-- Logo -->
     <div class="bg-orange-200 rounded-lg shadow w-[120px] h-[50px] overflow-hidden">
-      <img src="./Vues/Recettes/logo.png" alt="Logo Rivière Gourmande" class="w-full h-full object-cover" />
+      <img src="./Vues/logo.png" alt="Logo Rivière Gourmande" class="w-full h-full object-cover" />
     </div>
 
     <!-- Menu -->

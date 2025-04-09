@@ -11,14 +11,14 @@ switch ($action) {
   case 'ListeRecettes':
     $sourceDeDonnees = new RecettesDAO();
     $listeRecettes = $sourceDeDonnees->getLesRecettes();
-
+    
     include("./vues/Recettes/V_ListeRecettes.php");
     break;
   case 'Recette':
     if (isset($_GET['id'])) {
       $id = intval($_GET['id']);
       $sourceDeDonnees = new RecettesDAO();
-      $listeRecettes = $sourceDeDonnees->recette($id);
+      $UneRecette = $sourceDeDonnees->recette($id);
       include("./vues/Recettes/V_Recette.php");
       break;
     }

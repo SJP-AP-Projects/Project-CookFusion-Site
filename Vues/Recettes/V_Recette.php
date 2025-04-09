@@ -7,40 +7,8 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   </head>
   <body>
-    <!-- menu -->
-    <header class="flex items-center justify-between px-4 py-2 mr-8 ml-8">
-      <!-- Logo -->
-      <div
-        class="bg-orange-200 rounded-lg shadow w-[120px] h-[50px] overflow-hidden"
-      >
-        <img
-          src="../logo.png"
-          alt="Logo Rivière Gourmande"
-          class="w-full h-full object-cover"
-        />
-      </div>
-
-      <!-- Menu -->
-
-      <nav
-        class="flex space-x-10 bg-white py-2 px-6 rounded-lg shadow-md h-[50px]"
-      >
-        <a href="#" class="text-gray-800 hover:underline">Accueil</a>
-        <a href="#" class="text-gray-800 hover:underline">Nos sessions</a>
-        <a href="#" class="font-bold underline text-black">Nos recettes</a>
-        <a href="#" class="text-gray-800 hover:underline">Mes reservations</a>
-      </nav>
-
-      <!-- User -->
-      <div
-        class="bg-white px-4 py-2 rounded-lg shadow-md font-semibold text-sm h-[50px]"
-      >
-        User_01
-      </div>
-    </header>
-
     <!-- fin menu -->
-    <div class="w-[95%] mx-auto border-2 border-solid rounded-sm p-8">
+    <div class="w-[95%] mx-auto border-2 border-solid rounded-sm p-8 mt-7">
       <div class="grid grid-cols-5 grid-rows-2 gap-4">
         <!-- div presentation recette  -->
         <div
@@ -48,7 +16,7 @@
         >
           <div class="">
 
-            <h1 class="text-center text-2xl"><?php echo $uneRecette->getLibelle();?></h1>
+            <h1 class="text-center text-2xl"><?php echo $UneRecette->getLibelle();?></h1>
             <button
               class="mx-auto block bg-red-500 rounded-full text-center px-4"
             >
@@ -58,7 +26,7 @@
           <div class="border-solid border-b-1 mb-6 mt-6"></div>
           <div>
             <p>
-            <?php echo $uneRecette->getDescription();?>
+            <?php echo $UneRecette->getDescription();?>
              
             </p>
           </div>
@@ -67,11 +35,14 @@
         <div
           class="col-start-1 row-start-1 bg-white col-span-3 rounded-lg shadow-xl overflow-hidden"
         >
-          <img
-            src="<?php echo $uneRecette->getImage();?>"
-            alt="Image recette"
-            class="w-full h-full object-cover"
-          />
+        <?php 
+        
+   if ($UneRecette !== null && method_exists($UneRecette, 'getImage')) {
+       echo '<img src="' . $UneRecette->getImage() . '" />';
+   } else {
+       echo 'Image non disponible';
+   }
+   ?>
         </div>
         <!-- div Voir les cours associés à cette recette  -->
         <div
