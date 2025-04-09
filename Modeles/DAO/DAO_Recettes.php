@@ -6,7 +6,7 @@ class RecettesDAO extends Base
 {
     public function __construct()
     {
-        parent::__construct('tsere_apcuisine', 'g*2c*JRJcyYy@d6');
+        parent::__construct('webdiz_visiteur', "vZYuri8vU5i1PD");
     }
     public function getLesRecettes()
     {

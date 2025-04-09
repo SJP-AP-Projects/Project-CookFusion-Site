@@ -16,8 +16,8 @@ class Base
     {
         try {
             /* ============================= BD DISTANTE =============================================== */
-            $serveurBdDistant = 'mysql-projetsjp.alwaysdata.net';
-            $nomBdDistante = "tsere_bddcuisine";
+            $serveurBdDistant = 'mysql-webdiz.alwaysdata.net';
+            $nomBdDistante = "webdiz_bddcuisine";
             $this->db = new PDO("mysql:host=" . $serveurBdDistant . ";dbname=" . $nomBdDistante, $user, $mdp);
 
             $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); // Activer les exceptions PDO
