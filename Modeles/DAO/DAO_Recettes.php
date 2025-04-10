@@ -1,47 +1,56 @@
 <?php
-include("../Modeles/ConnexionBD.php");
-include("./Recettes/M_Recettes.php");
-include("./Recettes/M_TypeRecettes.php");
-class RecettesDAO extends Base{
-  public function _construct(){
-    parent::__construct('tsere_bddcuisine', 'g*2c*JRJcyYy@d6');
-  }
-  public function getLesRecettes()
-  {
+include("./Modeles/ConnexionBD.php");
+include("./Modeles/Recettes/M_Recettes.php");
+include("./Modeles/Recettes/M_TypeRecettes.php");
+class RecettesDAO extends Base
+{
+    public function __construct()
+    {
+        parent::__construct('webdiz_visiteur', "vZYuri8vU5i1PD");
+    }
+    public function getLesRecettes()
+    {
 
 
-      $resultatRequete = $this->query("SELECT * FROM Recette");
-      $tableauRecettes = $resultatRequete->fetchAll();
-      $listeRecettes = array();
-      foreach ($tableauRecettes as $uneLigneUneRecettes) {
+        $resultatRequete = $this->query("SELECT * FROM Recette");
+        $tableauRecettes = $resultatRequete->fetchAll();
+        $listeRecettes = array();
+        // var_dump($tableauRecettes);
+        foreach ($tableauRecettes as $uneLigneUneRecettes) {
 
-          $unObjetCompetence = new Soiree($uneLigneUneRecettes["numRecette"], $uneLigneUneRecettes["libelleRecette"], $uneLigneUneRecettes['description'], $uneLigneUneRecettes['image'], $uneLigneUneRecettes['numType']);
+            $unObjetCompetence = new Recettes(
+                $uneLigneUneRecettes["numRecette"],
+                $uneLigneUneRecettes["libelleRecette"],
+                $uneLigneUneRecettes['description'],
+                $uneLigneUneRecettes['image'],
+                $uneLigneUneRecettes['numType']
+            );
 
-          $listeRecettes[] = $unObjetCompetence;
-      }
+            $listeRecettes[] = $unObjetCompetence;
+            
+        }
 
-      return $listeRecettes;
-  }
-  public function recette($id){
-      $resultatRequete = $this->query("SELECT * FROM `Recette` WHERE `numRecette` = :id");
-      $resultatRequete->bindParam(':id', $id, PDO::PARAM_INT);
-      $resultatRequete->execute();
-      
-      $tableauRecettes = $resultatRequete->fetchAll();
-      $listeRecettes = array();
-      
-      foreach ($tableauRecettes as $uneLigneRecette) {
-          $uneRecette = new Soiree(
-              $uneLigneRecette["numRecette"],
-              $uneLigneRecette["libelleRecette"],
-              $uneLigneRecette["description"],
-              $uneLigneRecette["image"],
-              $uneLigneRecette["numType"]
-          );
-          
-          $listeRecettes[] = $uneRecette;
-      }
-  
-      return $listeRecettes;
-  }
+        return $listeRecettes;
+    }
+    public function recette($id)
+{
+    $stmt = $this->prepare("SELECT * FROM `Recette` WHERE `numRecette` = :id");
+    $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+    $stmt->execute();
+
+    $uneLigneRecette = $stmt->fetch();
+
+    if ($uneLigneRecette) {
+        return new Recettes(
+            $uneLigneRecette["numRecette"],
+            $uneLigneRecette["libelleRecette"],
+            $uneLigneRecette["description"],
+            $uneLigneRecette["image"],
+            $uneLigneRecette["numType"]
+        );
+    }
+
+    return null; // En cas d'ID invalide
+}
+
 }
