@@ -1,6 +1,6 @@
 <?php
 include("./Modeles/ConnexionBD.php");
-include("./Modeles/Recettes/M_Session.php");
+include("./Modeles/Sessions/M_Sessions.php");
 
 class SessionDAO extends Base
 {
@@ -8,7 +8,7 @@ class SessionDAO extends Base
     {
         parent::__construct('webdiz_visiteur', "vZYuri8vU5i1PD");
     }
-    public function getLesRecettes()
+    public function getLesSessions()
     {
 
 
@@ -23,6 +23,7 @@ class SessionDAO extends Base
                 $uneLigneUneSession["nomSession"],
                 $uneLigneUneSession['dateSession'],
                 $uneLigneUneSession['heureDebut'],
+                $uneLigneUneSession['heureFin'],
                 $uneLigneUneSession['prix'],
                 $uneLigneUneSession['nbPlaceMax'],
                 $uneLigneUneSession['nbPlacePrise'],
@@ -34,7 +35,7 @@ class SessionDAO extends Base
 
         return $listeSession;
     }
-    public function recette($id)
+    public function Session($id)
 {
     $stmt = $this->prepare("SELECT * FROM `SessionCours` WHERE `numSession` = :id");
     $stmt->bindParam(':id', $id, PDO::PARAM_INT);
@@ -44,17 +45,62 @@ class SessionDAO extends Base
 
     if ($uneLigneSession) {
         return new Session(
-          $uneLigneSession["numSession"],
-          $uneLigneSession["nomSession"],
-          $uneLigneSession['dateSession'],
-          $uneLigneSession['heureDebut'],
-          $uneLigneSession['prix'],
-          $uneLigneSession['nbPlaceMax'],
-          $uneLigneSession['nbPlacePrise'],
+            $uneLigneSession["numSession"],
+            $uneLigneSession["nomSession"],
+            $uneLigneSession['dateSession'],
+            $uneLigneSession['heureDebut'],
+            $uneLigneSession['heureFin'],
+            $uneLigneSession['prix'],
+            $uneLigneSession['nbPlaceMax'],
+            $uneLigneSession['nbPlacePrise'],
         );
     }
 
     return null; // En cas d'ID invalide
 }
+public function getSessionAvecRecettes($id)
+{
+    $stmt = $this->prepare("
+        SELECT Recette.numRecette, Recette.libelleRecette, Recette.description, Recette.image`, Recette.numType
+FROM SessionCours
+INNER JOIN Proposer ON Proposer.numSession = SessionCours.numSession
+INNER JOIN Recette ON Recette.numRecette = Proposer.numRecette;
+
+        WHERE s.numSession = :id
+    ");
+    $stmt->bindParam(':id', $id, PDO::PARAM_STR);
+    $stmt->execute();
+
+    $resultats = $stmt->fetchAll();
+
+    if (!$resultats) {
+        return null;
+    }
+
+    $session = new Session(
+        $resultats[0]["numSession"],
+        $resultats[0]["nomSession"],
+        $resultats[0]['dateSession'],
+        $resultats[0]['heureDebut'],
+        $resultats[0]['heureFin'],
+        $resultats[0]['prix'],
+        $resultats[0]['nbPlaceMax'],
+        $resultats[0]['nbPlacePrise']
+    );
+
+    // Ajout d’un tableau de recettes à la session
+    $recettes = array();
+    foreach ($resultats as $ligne) {
+        $recettes[] = array(
+            'id' => $ligne["numRecette"],
+            'nom' => $ligne["nomRecette"],
+            'description' => $ligne["description"],
+            'image' => $ligne["image"]
+        );
+    }
+
+    return ['session' => $session, 'recettes' => $recettes];
+}
+
 
 }

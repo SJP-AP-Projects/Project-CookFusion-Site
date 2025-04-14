@@ -41,12 +41,12 @@
               echo "<tr>";
                 echo "<td class='px-6 py-4 border-r-2 border-solid border-t-2'><img class='w-25 h-24'
                   
-                  src="
-                  . $uneSession->getImage()."/></td>";
+                  src=
+                  /></td>";
+                echo "<td class='px-6 py-4 border-r-2 border-solid border-t-2'>". $uneSession->getdate()."</td>";
                 echo "<td class='px-6 py-4 border-r-2 border-solid border-t-2'>". $uneSession->getLibelle()."</td>";
-                echo "<td class='px-6 py-4 border-r-2 border-solid border-t-2'>". $uneSession->getDescription()."</td>";
                 echo "<td class='border-solid border-t-2'>
-    <a href=\"index.php?controleur=Recettes&action=Recette&id=" . $uneSession->getId() . "\" 
+    <a href=\"index.php?controleur=Sessions&action=Session&id=" . $uneSession->getId() . "\" 
        class='bg-amber-100 text-black font-bold py-2 px-4 rounded-full'>
       Voir la recette
     </a>

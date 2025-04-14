@@ -35,7 +35,7 @@ class Session {
   public function getheureFin(){
     return $this->heureFin;
   }
-  public function gethprix(){
+  public function getprix(){
     return $this->prix;
   }
   public function getnbPlaceMax(){

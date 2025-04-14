@@ -16,44 +16,38 @@
     
     </div>
       <!-- div 2 -->
+    <h1 class="text-3xl font-bold text-center mb-4 mt-8"><?php echo $UneSession->getLibelle(); ?></h1>
 
     <div class="grid grid-cols-5 grid-rows-3 gap-4 ">
       <div class="col-span-5 rounded-lg shadow-xl pl-4 pr-4 pt-4 pb-4">
         <table class="min-w-full border-collapse bg-white">
-          <thead>
-            <tr>
-              <th
-                class="px-6 py-3 text-left text-sm font-semibold border-r-2 border-solid"
-              ></th>
-              <th
-                class="px-6 py-3 text-left text-sm font-semibold border-r-2 border-solid"
-              ></th>
-              <th
-                class="px-6 py-3 text-left text-sm font-semibold border-r-2 border-solid"
-              ></th>
-              <th class="px-6 py-3 text-left text-sm font-semibold"></th>
-            </tr>
-          </thead>
-          <tbody class="divide-y divide-gray-200"> 
-            <?php
-            foreach ($listeSessions as $uneSession){
-              echo "<tr>";
-                echo "<td class='px-6 py-4 border-r-2 border-solid border-t-2'><img class='w-25 h-24'
-                  
-                  src="
-                  . $uneSession->getImage()."/></td>";
-                echo "<td class='px-6 py-4 border-r-2 border-solid border-t-2'>". $uneSession->getLibelle()."</td>";
-                echo "<td class='px-6 py-4 border-r-2 border-solid border-t-2'>". $uneSession->getDescription()."</td>";
-                echo "<td class='border-solid border-t-2'>
-    <a href=\"index.php?controleur=Recettes&action=Recette&id=" . $uneSession->getId() . "\" 
-       class='bg-amber-100 text-black font-bold py-2 px-4 rounded-full'>
-      Voir la recette
-    </a>
-  </td>";
-            };
-            ?>
-          </tbody>
-        </table></div>
+  <thead>
+    <tr>
+      <th class="px-6 py-3 text-left text-sm font-semibold border-r-2 border-solid">Image</th>
+      <th class="px-6 py-3 text-left text-sm font-semibold border-r-2 border-solid">Nom de la recette</th>
+      <th class="px-6 py-3 text-left text-sm font-semibold border-r-2 border-solid">Description</th>
+      <th class="px-6 py-3 text-left text-sm font-semibold">Action</th>
+    </tr>
+  </thead>
+  <tbody class="divide-y divide-gray-200"> 
+    <?php foreach ($RecettesAssociees as $recette): ?>
+      <tr>
+        <td class="px-6 py-4 border-r-2 border-solid border-t-2">
+          <img class="w-25 h-24 object-cover" src="<?= htmlspecialchars($recette['image']) ?>" alt="Image recette">
+        </td>
+        <td class="px-6 py-4 border-r-2 border-solid border-t-2"><?= htmlspecialchars($recette['nom']) ?></td>
+        <td class="px-6 py-4 border-r-2 border-solid border-t-2"><?= htmlspecialchars($recette['description']) ?></td>
+        <td class="border-solid border-t-2">
+          <a href="index.php?controleur=Recettes&action=Recette&id=<?= $recette['id'] ?>" 
+             class="bg-amber-100 text-black font-bold py-2 px-4 rounded-full">
+            Voir la recette
+          </a>
+        </td>
+      </tr>
+    <?php endforeach; ?>
+  </tbody>
+</table>
+</div>
       <div class="col-span-3 row-start-2 rounded-lg shadow-xl  pr-4 pl-4 pt-4">
         <p>
         À votre arrivée, vous êtes accueilli(e) chaleureusement par le chef qui vous présente le menu du jour et les produits que vous allez cuisiner. Après une brève introduction, place à la pratique : vous réalisez chaque étape de la recette en suivant les conseils du chef, dans une ambiance conviviale.
@@ -66,9 +60,9 @@
           <h1 class="text-2xl">Horaire :</h1>
         </div>
         <div class="text-center">
-          <p>15h-16h</p>
+          <p><?php echo $UneSession->getheureDebut(); ?> - <?php echo $UneSession->getheureFin(); ?> </p>
           <p>16 rue des frères camors</p>
-          <p>15 €</p>
+          <p><?php echo $UneSession->getprix(); ?> €</p>
         </div>
         <div class="flex justify-center items-center gap-5 mt-4 mb-4">
           <a href="#" class="bg-amber-100 text-black font-semibold py-2 px-4 rounded-full">
@@ -78,7 +72,7 @@
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a4 4 0 00-3-3.87M9 20H4v-2a4 4 0 013-3.87M16 7a4 4 0 11-8 0 4 4 0 018 0z" />
             </svg>
-            <span>15/20</span>
+            <span><?php echo $UneSession->getnbPlacePrise(); ?>/<?php echo $UneSession->getnbPlaceMax(); ?> </span>
           </div>
         </div>
 

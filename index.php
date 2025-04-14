@@ -21,7 +21,7 @@
 
     <nav class="flex space-x-10 bg-white py-2 px-6 rounded-lg shadow-md h-[50px]">
       <a href="index.php?controleur=General&action=accueil" class="text-gray-800 hover:underline">Accueil</a>
-      <a href="#" class="text-gray-800 hover:underline">Nos sessions</a>
+      <a href="index.php?controleur=Sessions&action=ListeSessions" class="text-gray-800 hover:underline">Nos sessions</a>
       <a href="index.php?controleur=Recettes&action=ListeRecettes" class="text-gray-800 hover:underline">Nos recettes</a>
       <a href="#" class="text-gray-800 hover:underline">Mes reservations</a>
     </nav>
