@@ -46,6 +46,9 @@
     case 'Recettes':
       include("./Controleurs/C_Recettes.php");
       break;
+    case 'Sessions':
+        include("./Controleurs/C_Sessions.php");
+        break;
     default:
       // Fallback si le contrôleur n'est pas reconnu
       include("./Controleurs/C_GestionGeneral.php");
