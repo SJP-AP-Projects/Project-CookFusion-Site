@@ -1,6 +1,7 @@
 <?php
 include("./Modeles/ConnexionBD.php");
 include("./Modeles/Sessions/M_Sessions.php");
+include("./Modeles/Recettes/M_Recettes.php");
 
 class SessionDAO extends Base
 {
@@ -61,13 +62,14 @@ class SessionDAO extends Base
 public function getSessionAvecRecettes($id)
 {
     $stmt = $this->prepare("
-        SELECT Recette.numRecette, Recette.libelleRecette, Recette.description, Recette.image`, Recette.numType
-FROM SessionCours
-INNER JOIN Proposer ON Proposer.numSession = SessionCours.numSession
-INNER JOIN Recette ON Recette.numRecette = Proposer.numRecette;
-
-        WHERE s.numSession = :id
+        SELECT Recette.numRecette, SessionCours.numSession, Recette.libelleRecette, Recette.description, Recette.image, Recette.numType,
+               SessionCours.dateSession, SessionCours.heureDebut, SessionCours.heureFin, SessionCours.prix, SessionCours.nbPlaceMax, SessionCours.nbPlacePrise
+        FROM SessionCours
+        INNER JOIN Proposer ON Proposer.numSession = SessionCours.numSession
+        INNER JOIN Recette ON Recette.numRecette = Proposer.numRecette
+        WHERE SessionCours.numSession = :id
     ");
+    
     $stmt->bindParam(':id', $id, PDO::PARAM_STR);
     $stmt->execute();
 
@@ -77,23 +79,19 @@ INNER JOIN Recette ON Recette.numRecette = Proposer.numRecette;
         return null;
     }
 
-    $session = new Session(
-        $resultats[0]["numSession"],
-        $resultats[0]["nomSession"],
-        $resultats[0]['dateSession'],
-        $resultats[0]['heureDebut'],
-        $resultats[0]['heureFin'],
-        $resultats[0]['prix'],
-        $resultats[0]['nbPlaceMax'],
-        $resultats[0]['nbPlacePrise']
+    $session = new Recettes(
+        $resultats[0]["numRecette"],
+        $resultats[0]["libelleRecette"],
+        $resultats[0]['description'],
+        $resultats[0]['image'],
+        $resultats[0]['numType'],
     );
 
-    // Ajout d’un tableau de recettes à la session
     $recettes = array();
     foreach ($resultats as $ligne) {
         $recettes[] = array(
             'id' => $ligne["numRecette"],
-            'nom' => $ligne["nomRecette"],
+            'nom' => $ligne["libelleRecette"],
             'description' => $ligne["description"],
             'image' => $ligne["image"]
         );

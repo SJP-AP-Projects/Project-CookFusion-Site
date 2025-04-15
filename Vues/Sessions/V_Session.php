@@ -7,12 +7,17 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   </head>
   <body>
+    
 
     <div class="w-[95%] mx-auto border-2 border-solid rounded-sm p-8 mt-7 ">
       <!-- div 1 -->
    
     <div>
-
+    <?php 
+      foreach ($recettesAssociees as $recette) {
+        var_dump($recette['nom']);
+      }
+    ?>
     
     </div>
       <!-- div 2 -->
@@ -30,10 +35,10 @@
     </tr>
   </thead>
   <tbody class="divide-y divide-gray-200"> 
-    <?php foreach ($RecettesAssociees as $recette): ?>
+    <?php foreach ($recettesAssociees as $recette): ?>
       <tr>
         <td class="px-6 py-4 border-r-2 border-solid border-t-2">
-          <img class="w-25 h-24 object-cover" src="<?= htmlspecialchars($recette['image']) ?>" alt="Image recette">
+          <img class="w-25 h-24 object-cover" src="<?php echo numType->getImage() 	?>" alt="Image recette">
         </td>
         <td class="px-6 py-4 border-r-2 border-solid border-t-2"><?= htmlspecialchars($recette['nom']) ?></td>
         <td class="px-6 py-4 border-r-2 border-solid border-t-2"><?= htmlspecialchars($recette['description']) ?></td>

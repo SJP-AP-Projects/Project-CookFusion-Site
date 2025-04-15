@@ -12,7 +12,7 @@ switch ($action) {
     $sourceDeDonnees = new SessionDAO();
     $listeSessions = $sourceDeDonnees->getLesSessions();
     
-    include("./vues/Sessions/V_ListeSessions.php");
+    include("./Vues/Sessions/V_ListeSessions.php");
     break;
     case 'Session':
       if (isset($_GET['id'])) {
@@ -20,9 +20,9 @@ switch ($action) {
           $sourceDeDonnees = new SessionDAO();
           
           $UneSession = $sourceDeDonnees->Session($id);
-          $recettesAssociees = $sourceDeDonnees->getRecettesPourSession($id); // <-- ici
+          $recettesAssociees = $sourceDeDonnees->getSessionAvecRecettes($id); 
   
-          include("./vues/Sessions/V_Session.php");
+          include("./Vues/Sessions/V_Session.php");
           break;
       }
   
