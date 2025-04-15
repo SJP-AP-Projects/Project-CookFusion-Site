@@ -31,74 +31,77 @@ class SessionDAO extends Base
             );
 
             $listeSession[] = $unObjetSession;
-            
         }
 
         return $listeSession;
     }
     public function Session($id)
-{
-    $stmt = $this->prepare("SELECT * FROM `SessionCours` WHERE `numSession` = :id");
-    $stmt->bindParam(':id', $id, PDO::PARAM_INT);
-    $stmt->execute();
+    {
+        $stmt = $this->prepare("SELECT * FROM `SessionCours` WHERE `numSession` = :id");
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
 
-    $uneLigneSession = $stmt->fetch();
+        $uneLigneSession = $stmt->fetch();
 
-    if ($uneLigneSession) {
-        return new Session(
-            $uneLigneSession["numSession"],
-            $uneLigneSession["nomSession"],
-            $uneLigneSession['dateSession'],
-            $uneLigneSession['heureDebut'],
-            $uneLigneSession['heureFin'],
-            $uneLigneSession['prix'],
-            $uneLigneSession['nbPlaceMax'],
-            $uneLigneSession['nbPlacePrise'],
-        );
+        if ($uneLigneSession) {
+            return new Session(
+                $uneLigneSession["numSession"],
+                $uneLigneSession["nomSession"],
+                $uneLigneSession['dateSession'],
+                $uneLigneSession['heureDebut'],
+                $uneLigneSession['heureFin'],
+                $uneLigneSession['prix'],
+                $uneLigneSession['nbPlaceMax'],
+                $uneLigneSession['nbPlacePrise'],
+            );
+        }
+
+        return null; // En cas d'ID invalide
     }
-
-    return null; // En cas d'ID invalide
-}
-public function getSessionAvecRecettes($id)
-{
-    $stmt = $this->prepare("
+    public function getSessionAvecRecettes($id)
+    {
+        $stmt = $this->prepare("
         SELECT Recette.numRecette, SessionCours.numSession, Recette.libelleRecette, Recette.description, Recette.image, Recette.numType,
-               SessionCours.dateSession, SessionCours.heureDebut, SessionCours.heureFin, SessionCours.prix, SessionCours.nbPlaceMax, SessionCours.nbPlacePrise
+               SessionCours.dateSession, SessionCours.heureDebut, SessionCours.heureFin, SessionCours.prix, SessionCours.nbPlaceMax, SessionCours.nbPlacePrise,
+               SessionCours.nomSession
         FROM SessionCours
         INNER JOIN Proposer ON Proposer.numSession = SessionCours.numSession
         INNER JOIN Recette ON Recette.numRecette = Proposer.numRecette
         WHERE SessionCours.numSession = :id
     ");
-    
-    $stmt->bindParam(':id', $id, PDO::PARAM_STR);
-    $stmt->execute();
 
-    $resultats = $stmt->fetchAll();
+        $stmt->bindParam(':id', $id, PDO::PARAM_STR);
+        $stmt->execute();
 
-    if (!$resultats) {
-        return null;
-    }
+        $resultats = $stmt->fetchAll();
 
-    $session = new Recettes(
-        $resultats[0]["numRecette"],
-        $resultats[0]["libelleRecette"],
-        $resultats[0]['description'],
-        $resultats[0]['image'],
-        $resultats[0]['numType'],
-    );
+        if (!$resultats) {
+            return null;
+        }
 
-    $recettes = array();
-    foreach ($resultats as $ligne) {
-        $recettes[] = array(
-            'id' => $ligne["numRecette"],
-            'nom' => $ligne["libelleRecette"],
-            'description' => $ligne["description"],
-            'image' => $ligne["image"]
+        $recettes = array();
+        foreach ($resultats as $ligne) {
+            $recettes[] = new Recettes(
+                $ligne["numRecette"],
+                $ligne["libelleRecette"],
+                $ligne["description"],
+                $ligne["image"],
+                $ligne["numType"]
+            );
+        }
+
+        $session = new Session(
+            $resultats[0]["numSession"],
+            $resultats[0]["nomSession"],
+            $resultats[0]['dateSession'],
+            $resultats[0]['heureDebut'],
+            $resultats[0]['heureFin'],
+            $resultats[0]['prix'],
+            $resultats[0]['nbPlaceMax'],
+            $resultats[0]['nbPlacePrise']
+
         );
+
+        return ['session' => $session, 'recettes' => $recettes];
     }
-
-    return ['session' => $session, 'recettes' => $recettes];
-}
-
-
 }
