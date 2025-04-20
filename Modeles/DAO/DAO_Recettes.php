@@ -50,7 +50,7 @@ class RecettesDAO extends Base
             );
         }
 
-        return null; // En cas d'ID invalide
+        return null; 
     }
 
     public function findSessionsByRecette($numRecette)

@@ -15,7 +15,7 @@
 
   <div
     class="flex flex-col justify-center items-center w-[95%] pb-110 mx-auto border-2 border-solid rounded-sm p-8 mt-7">
-    <h1 class="text-3xl font-bold text-center mb-4 mt-8">Nos Prochaines Saisions</h1>
+    <h1 class="text-3xl font-bold text-center mb-4 mt-8">Nos Prochaines Sessions</h1>
 
     <!-- tableau Recette -->
     <div
