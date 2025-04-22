@@ -1,21 +1,21 @@
 <?php
   class Participation{
+    private $nomSession;
+    private $dateSession;
     private $numSession;
-    private $id;
-    private $commentaire;
-    public function __construct($numSession,$id,$commentaire){
+    public function __construct($nomSession,$dateSession,$numSession){
+      $this->nomSession = $nomSession;
+      $this->dateSession = $dateSession;
       $this->numSession = $numSession;
-      $this->id = $id;
-      $this->commentaire = $commentaire;
     }
     public function getNumSession(){
-      return $this->numSession;
+      return $this->nomSession;
     }
     public function getId(){
-      return $this->id;
+      return $this->numSession;
     }
-    public function getCommentaire(){
-      return $this->commentaire;
+    public function getDateSession(){
+      return $this->dateSession;
     }
   }
 ?>

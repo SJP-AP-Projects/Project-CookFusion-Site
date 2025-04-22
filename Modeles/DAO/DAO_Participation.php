@@ -8,7 +8,7 @@ class ParticipationDAO extends Base{
     parent::__construct('webdiz_visiteur', "vZYuri8vU5i1PD");
   }
   public function getParticipation($id){
-    $stmt = $this->prepare("SELECT * FROM `Participer` WHERE `id` = :id");
+    $stmt = $this->prepare("SELECT SessionCours.nomSession, SessionCours.dateSession, SessionCours.numSession FROM `Participer` INNER JOIN SessionCours on SessionCours.numSession = Participer.numSession where Participer.id = :id");
     $stmt->bindParam(':id', $id, PDO::PARAM_INT);
     $stmt->execute();
 
@@ -16,9 +16,9 @@ class ParticipationDAO extends Base{
 
     if ($uneLigneParticipation) {
         return new Participation(
+            $uneLigneParticipation["nomSession"],
+            $uneLigneParticipation["dateSession"],
             $uneLigneParticipation["numSession"],
-            $uneLigneParticipation["id"],
-            $uneLigneParticipation["Commentaire"],
         );
     }
 
