@@ -79,9 +79,23 @@
           <p><?php echo $UneSession->getprix(); ?> €</p>
         </div>
         <div class="flex justify-center items-center gap-5 mt-4 mb-4">
-          <a href="#" class="bg-amber-100 text-black font-semibold py-2 px-4 rounded-full">
-            S'inscrire
-          </a>
+          <?php 
+            if($_SESSION['Connected'] == false){
+              echo '
+              <a href="" class="pointer-events-none cursor-not-allowed bg-amber-100 text-black font-semibold py-2 px-4 rounded-full">
+                S\'inscrire
+              </a>
+            ';
+            }elseif($_SESSION['Connected'] == true){
+              $utilisateur = $_SESSION['utilisateur'];
+              echo '
+                <a href="index.php?controleur=Participation&action=AjouterParticipation&id='.$utilisateur->getId().'&numSession='.$UneSession->getId().'" class="bg-amber-100 text-black font-semibold py-2 px-4 rounded-full">
+                  S\'inscrire
+                </a>
+              ';
+            }
+          ?>
+          
           <div class="flex items-center text-black font-semibold ">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a4 4 0 00-3-3.87M9 20H4v-2a4 4 0 013-3.87M16 7a4 4 0 11-8 0 4 4 0 018 0z" />

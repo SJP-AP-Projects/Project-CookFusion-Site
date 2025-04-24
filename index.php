@@ -1,3 +1,16 @@
+<?php
+
+include_once("./Modeles/DAO/DAO_Adherents.php");
+
+// Démarre la session dès le début pour pouvoir utiliser $_SESSION partout
+session_start();
+
+// Optionnellement, tu peux initialiser la variable 'Connected' si elle n'est pas déjà définie
+if (!isset($_SESSION['Connected'])) {
+  $_SESSION['Connected'] = false;
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,6 +23,7 @@
 </head>
 
 <body>
+  
   <!-- menu -->
   <header class="flex items-center justify-between px-4 py-2 mr-8 ml-8">
     <!-- Logo -->
@@ -23,13 +37,38 @@
       <a href="index.php?controleur=General&action=accueil" class="text-gray-800 hover:underline">Accueil</a>
       <a href="index.php?controleur=Sessions&action=ListeSessions" class="text-gray-800 hover:underline">Nos sessions</a>
       <a href="index.php?controleur=Recettes&action=ListeRecettes" class="text-gray-800 hover:underline">Nos recettes</a>
-      <a href="#" class="text-gray-800 hover:underline">Mes reservations</a>
+      <?php 
+        if($_SESSION['Connected'] == true){
+          $utilisateur = $_SESSION['utilisateur'];
+          echo'
+            <a href="index.php?controleur=Participation&action=ListeParticipations&id='. $utilisateur->getId() .'" class="text-gray-800 hover:underline">Mes reservations</a>
+          ';
+        }
+      ?>
+      
     </nav>
 
     <!-- User -->
-    <div class="bg-white px-4 py-2 rounded-lg shadow-md font-semibold text-sm h-[50px]">
-      User_01
-    </div>
+    <?php 
+    if($_SESSION['Connected'] == true){
+      $utilisateur = $_SESSION['utilisateur'];  
+      // Affiche le nom et le prénom de l'utilisateur connecté
+      echo '
+      <div class="bg-white px-4 py-2 rounded-lg shadow-md font-semibold text-sm h-[50px]">
+        ' . $utilisateur->getNom() . '
+      </div>
+      ';
+    }else{
+      echo '
+      <div class="bg-white px-4 py-2 rounded-lg shadow-md font-semibold text-sm h-[50px]">
+        <a href="index.php?controleur=Adherents&action=FormConnexion" class="text-gray-800 hover:underline">Se Connecter</a>
+      
+      </div>
+      ';
+    }
+    
+    ?>
+    
   </header>
 
   <?php
@@ -49,6 +88,12 @@
     case 'Sessions':
         include("./Controleurs/C_Sessions.php");
         break;
+    case 'Adherents':
+        include("./Controleurs/C_Adherents.php");
+        break;
+    case 'Participation':
+          include("./Controleurs/C_Participation.php");
+          break;
     default:
       // Fallback si le contrôleur n'est pas reconnu
       include("./Controleurs/C_GestionGeneral.php");

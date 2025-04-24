@@ -36,10 +36,7 @@
           <?php
           foreach ($listeSessions as $uneSession) {
             echo "<tr>";
-            echo "<td class='px-6 py-4 border-r-2 border-solid border-t-2'><img class='w-25 h-24'
-                  
-                  src=
-                  /></td>";
+            echo "<td class='px-6 py-4 border-r-2 border-solid border-t-2'>" . $uneSession->getheureDebut() . ' h'."</td>";
             echo "<td class='px-6 py-4 border-r-2 border-solid border-t-2'>" . $uneSession->getdate() . "</td>";
             echo "<td class='px-6 py-4 border-r-2 border-solid border-t-2'>" . $uneSession->getLibelle() . "</td>";
             echo "<td class='border-solid border-t-2'>

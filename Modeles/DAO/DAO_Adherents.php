@@ -1,7 +1,7 @@
 <?php
-include("./Modeles/ConnexionBD.php");
-include("./Modele/Adherents/M_Adherents.php");
-include("./Modele/Adherents/M_Participation.php");
+include_once("./Modeles/ConnexionBD.php");
+include_once("./Modeles/Adherents/M_Adherents.php");
+include_once("./Modeles/Adherents/M_Participation.php");
 class AdherentDAO extends Base{
   public function __construct()
   {

@@ -1,5 +1,5 @@
 <?php
-include("./Modeles/DAO/DAO_Sessions.php");
+include_once("./Modeles/DAO/DAO_Sessions.php");
 
 if (isset($_GET['action']))
   $action = filter_var($_GET['action'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);

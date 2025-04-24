@@ -1,8 +1,8 @@
 <?php
-include("./Modeles/ConnexionBD.php");
-include("./Modeles/Recettes/M_Recettes.php");
-include("./Modeles/Sessions/M_Sessions.php");
-include("./Modeles/Recettes/M_TypeRecettes.php");
+include_once("./Modeles/ConnexionBD.php");
+include_once("./Modeles/Recettes/M_Recettes.php");
+include_once("./Modeles/Sessions/M_Sessions.php");
+include_once("./Modeles/Recettes/M_TypeRecettes.php");
 class RecettesDAO extends Base
 {
     public function __construct()

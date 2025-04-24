@@ -1,5 +1,5 @@
 <?php
-include("./Modeles/ConnexionBD.php");
+include_once("./Modeles/ConnexionBD.php");
 include("./Modeles/Sessions/M_Sessions.php");
 include("./Modeles/Recettes/M_Recettes.php");
 
