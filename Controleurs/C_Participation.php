@@ -22,7 +22,6 @@ switch ($action) {
       $id = $_GET['id'];
       $numSession = $_GET['numSession'];
       $commentaire = 'default value';
-      var_dump($id,$numSession,$commentaire);
 
       $participationDAO->addParticipation($numSession, $id, $commentaire);
     }
@@ -35,7 +34,6 @@ switch ($action) {
       if (!empty($_GET)) {
         $id = $_GET['id'];
         $numSession = $_GET['numSession'];
-        var_dump($id,$numSession);
   
         $participationDAO->deleteParticipation($numSession, $id);
       }
